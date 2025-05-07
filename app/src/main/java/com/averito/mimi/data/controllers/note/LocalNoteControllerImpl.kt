@@ -23,7 +23,7 @@ class LocalNoteControllerImpl @Inject constructor(
         return result.getOrNull();
     }
 
-    override suspend fun getOne(id: Int): NoteModel? {
+    override suspend fun getOne(id: Long): NoteModel? {
         val result = noteService.getOne(id)
 
         if (result.isFailure) {
@@ -34,12 +34,16 @@ class LocalNoteControllerImpl @Inject constructor(
         return result.getOrNull();
     }
 
-    override suspend fun create(note: NoteModel): Unit {
+    override suspend fun create(note: NoteModel): Long {
         val result = noteService.create(note)
 
-        if (result.isFailure) {
-            appLogger.error("LocalNoteControllerImpl: create failure: ${result.exceptionOrNull()?.message}")
-        }
+        return result.fold(
+            onSuccess = { it },
+            onFailure = {
+                appLogger.error("LocalNoteControllerImpl: create failure: ${it.message}")
+                0L
+            }
+        )
     }
 
     override suspend fun update(note: NoteModel): Unit {
@@ -50,7 +54,7 @@ class LocalNoteControllerImpl @Inject constructor(
         }
     }
 
-    override suspend fun remove(id: Int): Unit {
+    override suspend fun remove(id: Long): Unit {
         val result = noteService.remove(id)
 
         if (result.isFailure) {

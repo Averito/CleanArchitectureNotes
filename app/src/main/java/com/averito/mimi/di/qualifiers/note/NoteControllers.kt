@@ -10,7 +10,6 @@ annotation class LocalNoteController
 @Retention(AnnotationRetention.BINARY)
 annotation class RemoteNoteController
 
-
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class NoteControllerFacade

@@ -15,7 +15,7 @@ class LocalNoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
         }
     }
 
-    override suspend fun getOne(id: Int): Result<NoteModel?> {
+    override suspend fun getOne(id: Long): Result<NoteModel?> {
         try {
             val note = noteDao.getOne(id)
             return Result.success(note)
@@ -24,10 +24,10 @@ class LocalNoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
         }
     }
 
-    override suspend fun create(note: NoteModel): Result<Unit> {
+    override suspend fun create(note: NoteModel): Result<Long> {
         try {
-            noteDao.create(note.toLocalModel())
-            return Result.success(Unit)
+            val note = noteDao.create(note.toLocalModel())
+            return Result.success(note)
         } catch (error: Exception) {
             return Result.failure(error)
         }
@@ -42,7 +42,7 @@ class LocalNoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
         }
     }
 
-    override suspend fun remove(id: Int): Result<Unit> {
+    override suspend fun remove(id: Long): Result<Unit> {
         try {
             noteDao.remove(id)
             return Result.success(Unit)

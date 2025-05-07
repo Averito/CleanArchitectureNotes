@@ -18,12 +18,12 @@ class RemoteNoteServiceImpl @Inject constructor(
         return noteRepository.getAll()
     }
 
-    override suspend fun getOne(id: Int): Result<NoteModel?> {
+    override suspend fun getOne(id: Long): Result<NoteModel?> {
         defaultAppLogger.debug("RemoteNoteServiceImpl: Получение сетевых заметок с id = $id.")
         return noteRepository.getOne(id)
     }
 
-    override suspend fun create(note: NoteModel): Result<Unit> {
+    override suspend fun create(note: NoteModel): Result<Long> {
         defaultAppLogger.info("RemoteNoteServiceImpl: Создание сетевой заметки: title = \"${note.title}\".")
         return noteRepository.create(note)
     }
@@ -33,7 +33,7 @@ class RemoteNoteServiceImpl @Inject constructor(
         return noteRepository.update(note)
     }
 
-    override suspend fun remove(id: Int): Result<Unit> {
+    override suspend fun remove(id: Long): Result<Unit> {
         defaultAppLogger.warn("RemoteNoteServiceImpl: Удаление сетевой заметки с id = $id.")
         return noteRepository.remove(id)
     }

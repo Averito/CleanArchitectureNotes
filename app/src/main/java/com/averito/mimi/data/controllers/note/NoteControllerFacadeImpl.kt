@@ -28,8 +28,7 @@ class NoteControllerFacadeImpl @Inject constructor(
         return merged
     }
 
-
-    override suspend fun getOne(id: Int): NoteModel? {
+    override suspend fun getOne(id: Long): NoteModel? {
         val local = localNoteController.getOne(id)
         if (local != null) return local
 
@@ -42,15 +41,15 @@ class NoteControllerFacadeImpl @Inject constructor(
     }
 
 
-    override suspend fun create(note: NoteModel) {
-        localNoteController.create(note)
+    override suspend fun create(note: NoteModel): Long {
+        return localNoteController.create(note)
     }
 
     override suspend fun update(note: NoteModel) {
         localNoteController.update(note)
     }
 
-    override suspend fun remove(id: Int) {
+    override suspend fun remove(id: Long) {
         localNoteController.remove(id)
     }
 }

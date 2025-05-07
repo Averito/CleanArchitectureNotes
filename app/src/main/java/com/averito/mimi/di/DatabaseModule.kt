@@ -2,6 +2,8 @@ package com.averito.mimi.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.averito.mimi.data.daos.note.NoteDao
 import com.averito.mimi.data.database.AppDatabase
 import dagger.Module
@@ -21,10 +23,12 @@ object DatabaseModule {
         @ApplicationContext context: Context
     ): AppDatabase {
         return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "mimi_database"
-        ).build()
+                context,
+                AppDatabase::class.java,
+                "mimi_database"
+            )
+            .fallbackToDestructiveMigration(false)
+            .build()
     }
 
     @Provides

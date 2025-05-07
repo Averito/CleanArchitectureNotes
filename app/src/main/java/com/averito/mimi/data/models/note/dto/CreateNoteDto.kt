@@ -8,7 +8,7 @@ data class CreateNoteDto(
 ) {
     fun toNoteModel(): LocalNoteModel {
         return LocalNoteModel(
-            id = 0,
+            id = 0L,
             title = this.title,
             body = this.body
         )

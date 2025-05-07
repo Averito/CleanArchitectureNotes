@@ -7,7 +7,7 @@ import com.averito.mimi.data.models.note.LocalNoteModel
 
 @Database(
     entities = [LocalNoteModel::class],
-    version = 1,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
